@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask CRUD App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    >
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Flask CRUD App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Secure Form Using Flask-WTF -->
+    <div class="container mt-4">
+      <form method="POST" action="/">
+        <!--  CSRF Token -->
+        {{ form.hidden_tag() }}
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            {{ form.fname.label }} 
+            {{ form.fname(class="form-control") }}
+            {% for err in form.fname.errors %}
+              <div class="text-danger small">{{ err }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="col-md-4">
+            {{ form.lname.label }} 
+            {{ form.lname(class="form-control") }}
+            {% for err in form.lname.errors %}
+              <div class="text-danger small">{{ err }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="col-md-4">
+            {{ form.email.label }} 
+            {{ form.email(class="form-control") }}
+            {% for err in form.email.errors %}
+              <div class="text-danger small">{{ err }}</div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="mt-3">
+          {{ form.submit(class="btn btn-primary") }}
+        </div>
+      </form>
+    </div>
+
+    <!-- Table to Display Database Records -->
+    <div class="container mt-5">
+      <h2>People in Database</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for people in allpeople %}
+          <tr>
+            <th scope="row">{{ people.sno }}</th>
+            <td>{{ people.fname }}</td>
+            <td>{{ people.lname }}</td>
+            <td>{{ people.email }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-oBqDVmMz4fnFO9gybBogGz3O6pMJwM4I/ZXAwOesbLE2xE6K1M5dOLyS8uOKfP7F"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
